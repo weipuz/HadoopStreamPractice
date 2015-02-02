@@ -28,8 +28,8 @@ for line in sys.stdin:
     words = line.split(',')
     
     if len(words) <= 4:
-    	print '%s\t%s' % (words[0], '0,'+ words[1])
+    	print '%s\t%s' % (words[0]+',0' , words[1])
     else:
-    	print '%s\t%s' % (words[0][0:2], '1,'+ words[2])
+    	print '%s\t%s' % (words[0][0:2]+','+words[2],1)
     	 
 
