@@ -20,12 +20,25 @@ Using the Hadoop Streaming API, write a Mapper and a Reducer that will find the 
 >AG000060590,20130101,TMAX,170,,,S,
 ...
 
-2.Run my implementation of this question, mapper: NCDCMapper.py , reducer: NCDCReducer.py
+2.We can use test command to test the data pipeline locally(without using hadoop): <pre><code>head -100000 /cs/bigdata/datasets/ncdc-2013-sorted.csv | python NCDCMapper.py | sort | python NCDCReducer.py</code></pre>
+
+This test script simply pass the input from stdin to the NCDCMapper.py, then sort the output, and pass the sorted output to the NCDCReducer.py.
+
+The output starts like this: 
+>
+- ('20130101', 'TMAX')	-49.2
+- ('20130101', 'TMIN')	31.7
+- ('20130102', 'TMAX')	-50.4
+- ('20130102', 'TMIN')	29.2
+- ...
+
+
+3.Run my implementation of this question, mapper: NCDCMapper.py , reducer: NCDCReducer.py
 The command to run is: <pre><code>hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar \
 -files NCDCMapper.py,NCDCReducer.py -input assignment1q3/ncdc-2013-sorted.csv \
 -output output -mapper NCDCMapper.py -reducer NCDCReducer.py
 </code></pre>
-3.The output starts like this:
+The output starts like this:
 >
 - ('20130101', 'TMAX')	-49.2     
 - ('20130101', 'TMIN')	31.7
